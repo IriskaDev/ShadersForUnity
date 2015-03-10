@@ -64,6 +64,13 @@ Shader "NatureEffect/FakeAtmosphereScattering"
 				half dotVN = dot(N, viewDir);
 
 				float alpha = abs(1 - dotVN);
+
+				//it means
+				//if alpha > _RevertBound:
+				//    alpha = 2 * _RevertBound - alpha
+				//else:
+				//    alpha = alpha
+				//the code down here is hard to understand but it's far more faster then if-else code above
 				float2 tmp = float2(alpha, 2 * _RevertBound - alpha);
 				alpha = lerp(tmp.y, tmp.x, step(alpha, _RevertBound));
 
